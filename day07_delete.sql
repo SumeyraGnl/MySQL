@@ -110,6 +110,7 @@ ROLLBACK TO cicek;  -- Bu satirda sildigimiz bilgileri geri getiriyoruz
   
        SELECT * FROM cocuklar;
        SELECT * FROM puanlar;
+       
    /* 2-) DELETE komutu beraberinde WHERE cumlecigi kullanilabilir. TRUNCATE ile 
     kullanilmaz.
     

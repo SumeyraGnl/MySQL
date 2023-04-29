@@ -30,10 +30,10 @@ UPDATE insanlar
 SET isim = 'Isimsiz'
 WHERE isim IS NULL;
 
--- 
+-- Ismi null olan kaytlar silin
+
 DELETE FROM insanlar
 WHERE isim IS NULL;
-
 
 
 /* ======================== ORDER BY ===========================
@@ -259,17 +259,108 @@ INSERT INTO isciler VALUES(567890123, 'Mehmet Ozturk', 'Izmir', 3500, 'Honda');
 
 SELECT * FROM isciler;
 
+-- 1) Sirketlere göre işçi sayisini 1'den büyükse yazdirin
+
 SELECT sirket, COUNT(isim)isci_sayisi
 FROM isciler
 GROUP BY sirket
 HAVING isci_sayisi>1;
 
+-- 2) Toplam geliri 8000 liradan fazla olan isimleri gosteren sorgu yaziniz
+
+SELECT isim, SUM(maas)top_maas
+FROM isciler
+GROUP BY isim
+HAVING top_maas>8000;
+
+-- Yeni create ettigimiz bir field uzerinden filtreleme yaptigimiz icin
+-- WHERE cumlecigini kullanamayiz, WHERE cumlecigi sadece tablomuzda var olan
+-- field'lar icin bir filtreleme yapar.
+
+-- 4) Eger bir sehirde alinan MAX maas 5000'den dusukse sehir ismini 
+-- ve MAX maasi veren sorgu yaziniz
+
+SELECT sehir, MAX(maas)max_maas
+FROM isciler
+GROUP BY sehir
+HAVING max_maas<5000;
+
+-- 5) Eger bir sehirde alinan MAX maas 5000'den buyukse sehir ismini 
+-- ve MAX maasi, sehir isim sirali veren sorgu yaziniz
+
+SELECT sehir, MAX(maas)max_maas
+FROM isciler
+GROUP BY sehir
+HAVING max_maas>5000
+ORDER BY sehir;
 
 
+/*============================ LIMIT ===========================
+>Tablodaki verilerin belli bir kismini listelemek icin LIMIT
+ komutunu kullaniriz.
+>LIMIT komutundan sonra kullandigimiz sayi kadar kaydi bize getirir.
+>Eger belirli bir aralikta calismak istiyorsak bu durumda 
+iki sayi gireriz, ancak bu sayilardan ilki baslangic noktamizi 
+ifade ederken ikincisi kac kayit getirecegimizi belirtir. Baslangic 
+noktasi dahil edilmez!
+===============================================================*/
+
+-- 1) Isciler tablosundan ilk 5 kaydi getiriniz.
+
+SELECT *
+FROM isciler
+LIMIT 5;
+
+-- 2) Isim sirali tablodan ilk 3 kaydi listeleyin.
+
+SELECT *
+FROM isciler
+ORDER BY isim
+LIMIT 3;
+
+-- 3) Maas sirali tablodan 4. kayittan 6. kayda kadar olan
+-- kayitlarin isim ve sehir bilgilerini listeleyin.
+
+SELECT isim,sehir
+FROM isciler
+ORDER BY maas
+LIMIT 3,3;
+
+-- 4) Maasi en yuksek 3 kisinin bilgilerini listeleyen sorguyu yaziniz.
+
+SELECT *
+FROM isciler
+ORDER BY maas DESC
+LIMIT 3;
+
+-- 5) Maasi en dusuk 3 kisinin sadece isimlerini listeleyen sorguyu yaziniz.
+
+SELECT isim
+FROM isciler
+ORDER BY maas
+LIMIT 3;
+
+-- 6) Maasi en dusuk 3 kisinin sadece isimlerini, 
+-- isim sirali listeleyen sorguyu yaziniz.
+
+SELECT isim
+FROM isciler
+ORDER BY maas,isim
+LIMIT 3;
+
+-- 7) Maas'i 4000'den buyuk olan 3 kisinin sehrini listeleyin.
+
+SELECT sehir
+FROM isciler
+WHERE maas>4000
+LIMIT 3;
 
 
+-- 8) Maasi en yuksek 3. kisinin bilgilerini listeleyen sorguyu yaziniz.
 
-
-
+SELECT *
+FROM isciler
+ORDER BY maas DESC
+LIMIT 2,1;
 
 

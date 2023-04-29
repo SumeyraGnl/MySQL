@@ -264,12 +264,12 @@ SORU 2 : Her iki ayda da satilan urun_isimleri ayni urunlerin,
 urun_isim'ini ve urunleri nisan ayinda alan musterilerin isimlerini 
 getiren bir Query yaziniz.
 ----------------------------------------------------------------*/ 
-                  
+                
 SELECT urun_isim,musteri_isim
 FROM nisan_satislar
 WHERE EXISTS (SELECT urun_isim
                   FROM mayis_satislar
-				  WHERE nisan_satislar.urun_id=mayis_satislar.urun_id);
+				  WHERE nisan_satislar.urun_isim=mayis_satislar.urun_isim);
 
 
 /*----------------------------------------------------------------
